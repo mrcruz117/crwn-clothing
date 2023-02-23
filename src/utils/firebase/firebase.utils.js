@@ -8,6 +8,8 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 
+// database imports
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -29,3 +31,31 @@ provider.setCustomParameters({ prompt: "select_account" });
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+export const db = getFirestore();
+
+export const createUserDocumentfromAuth = async (userAuth, additionalData) => {
+  const userDocRef = doc(db, "users", userAuth.uid);
+  console.log("userDocRef: ", userDocRef);
+  const userSnapshop = await getDoc(userDocRef);
+  console.log("userSnapshop: ", userSnapshop);
+  console.log("userSnapshop: ", userSnapshop.exists());
+  if (!userSnapshop.exists()) {
+    // if user data does not exist
+    // create user data
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt,
+      });
+    } catch (error) {
+      console.log("error creating user: ", error.message);
+    }
+  }
+
+  // if user data exists
+  return userDocRef;
+};
