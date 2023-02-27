@@ -8,6 +8,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 // database imports
@@ -44,11 +46,16 @@ export const createUserDocumentfromAuth = async (
   additionalInformation = {}
 ) => {
   if (!userAuth) return;
+
   const userDocRef = doc(db, "users", userAuth.uid);
+  
   console.log("userDocRef: ", userDocRef);
+  
   const userSnapshop = await getDoc(userDocRef);
+  
   console.log("userSnapshop: ", userSnapshop);
   console.log("userSnapshop: ", userSnapshop.exists());
+  
   if (!userSnapshop.exists()) {
     // if user data does not exist
     // create user data
@@ -81,4 +88,12 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
   const res = await signInWithEmailAndPassword(auth, email, password);
   return res;
+};
+
+export const signOutUser = async () => {
+  await signOut(auth);
+};
+
+export const onAuthStateChangedListener = (callback) => {
+  return onAuthStateChanged(auth, callback);
 };
