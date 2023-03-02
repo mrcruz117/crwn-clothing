@@ -13,7 +13,14 @@ import {
 } from "firebase/auth";
 
 // database imports
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -41,6 +48,22 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore();
 
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = doc(collectionRef, obj.title.toLowerCase());
+    batch.set(newDocRef, obj);
+  });
+
+  await batch.commit();
+  console.log("batch complete");
+};
+
 export const createUserDocumentfromAuth = async (
   userAuth,
   additionalInformation = {}
@@ -48,14 +71,14 @@ export const createUserDocumentfromAuth = async (
   if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
-  
+
   console.log("userDocRef: ", userDocRef);
-  
+
   const userSnapshop = await getDoc(userDocRef);
-  
+
   console.log("userSnapshop: ", userSnapshop);
   console.log("userSnapshop: ", userSnapshop.exists());
-  
+
   if (!userSnapshop.exists()) {
     // if user data does not exist
     // create user data
