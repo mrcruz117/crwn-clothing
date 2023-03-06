@@ -28,7 +28,6 @@ export const CartProvider = ({ children }) => {
     const total = cartItems.reduce((acc, cartItem) => {
       return acc + cartItem.quantity * cartItem.price;
     }, 0);
-    // console.log("total", total);
     setTotalCost(total);
   }, [cartItems]);
 
