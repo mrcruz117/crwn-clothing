@@ -80,7 +80,7 @@ export const getCategoriesAndDocuments = async () => {
   return categoryMap;
 };
 
-export const createUserDocumentfromAuth = async (
+export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
 ) => {
@@ -90,12 +90,12 @@ export const createUserDocumentfromAuth = async (
 
   console.log("userDocRef: ", userDocRef);
 
-  const userSnapshop = await getDoc(userDocRef);
+  const userSnapshot = await getDoc(userDocRef);
 
-  console.log("userSnapshop: ", userSnapshop);
-  console.log("userSnapshop: ", userSnapshop.exists());
+  console.log("userSnapshot: ", userSnapshot);
+  console.log("userSnapshot: ", userSnapshot.exists());
 
-  if (!userSnapshop.exists()) {
+  if (!userSnapshot.exists()) {
     // if user data does not exist
     // create user data
     const { displayName, email } = userAuth;
