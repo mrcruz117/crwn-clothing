@@ -13,7 +13,10 @@ const Category = () => {
   const categoriesMap = useSelector(selectCategoriesMap);
   const [products, setProducts] = useState(categoriesMap[category]);
 
+  console.log("render in category");
+
   useEffect(() => {
+    console.log("useEffect in category fired. setProducts");
     setProducts(categoriesMap[category]);
   }, [category, categoriesMap]);
 

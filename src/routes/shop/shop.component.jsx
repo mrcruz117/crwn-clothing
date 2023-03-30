@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { setCategoriesMap } from "../../store/categories/category.action";
+import { setCategories } from "../../store/categories/category.action";
 import { Route, Routes } from "react-router-dom";
 
 // import { CategoriesProvider } from "../../components/contexts/categories.context";
@@ -15,8 +15,10 @@ const Shop = () => {
 
   useEffect(() => {
     const getCategoriesMap = async () => {
-      const categoriesMap = await getCategoriesAndDocuments();
-      dispatch(setCategoriesMap(categoriesMap));
+      const categoriesArray = await getCategoriesAndDocuments();
+      console.log("categoriesArray", categoriesArray);
+
+      dispatch(setCategories(categoriesArray));
     };
     getCategoriesMap();
   }, []);
