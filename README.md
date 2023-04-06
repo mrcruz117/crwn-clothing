@@ -5,7 +5,7 @@ This is a demo react app made from scratch. It shows off current frontend practi
 
 ## 🛠 Tech Stack
 
-**Client:** React, along with most up to date hooks. Redux(migrated away from useContext hook for state management), react-router-dom,
+**Client:** React, along with most up to date hooks. Redux(migrated away from useContext hook for state management) redux-persist(Item and cart data persisting through page refresh), Redux-Thunk for more control over UX during async requests, react-router-dom,
 
 **Styling:** scss, styled-components
 
