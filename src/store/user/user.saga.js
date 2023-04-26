@@ -8,7 +8,7 @@ import {
   signUpSuccess,
   signUpFailed,
   signOutSuccess,
-  // signOutFailed,
+  signOutFailed,
 } from "./user.action";
 
 import {
@@ -80,14 +80,14 @@ export function* signUp({ payload: { email, password, displayName } }) {
     yield put(signUpFailed(error));
   }
 }
-// export function* signOut() {
-//   try {
-//     yield call(signOutUser);
-//     yield put(signOutSuccess());
-//   } catch (error) {
-//     yield put(signOutFailed(error));
-//   }
-// }
+export function* signOut() {
+  try {
+    yield call(signOutUser);
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailed(error));
+  }
+}
 
 export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
   yield call(getSnapshotFromUserAuth, user, additionalDetails);
@@ -112,9 +112,9 @@ export function* onSignUpStart() {
 export function* onSignUpSuccess() {
   yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
-// export function* onSignOutStart() {
-//   yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
-// }
+export function* onSignOutStart() {
+  yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
+}
 
 export function* userSagas() {
   yield all([
@@ -123,6 +123,6 @@ export function* userSagas() {
     call(onEmailSignInStart),
     call(onSignUpStart),
     call(onSignUpSuccess),
-    // call(onSignOutStart),
+    call(onSignOutStart),
   ]);
 }
