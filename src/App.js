@@ -8,23 +8,32 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   createUserDocumentFromAuth,
+  getCurrentUser,
   onAuthStateChangedListener,
 } from "./utils/firebase/firebase.utils";
-import { setCurrentUser } from "./store/user/user.action";
+import { setCurrentUser, checkUserSession } from "./store/user/user.action";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
+    // when I get rid of this code, it looks like user isnt signed in.
+    //
+    // const unsubscribe = onAuthStateChangedListener((user) => {
+    //   if (user) {
+    //     createUserDocumentFromAuth(user);
+    //   }
 
-      dispatch(setCurrentUser(user));
-    });
+    //   dispatch(setCurrentUser(user));
+    // });
 
-    return unsubscribe;
+    // return unsubscribe;
+
+    dispatch(checkUserSession());
+
+    // getCurrentUser().then((user) => {
+    //   console.log("user: ", user);
+    // });
   }, [dispatch]);
   return (
     <Routes>
