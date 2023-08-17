@@ -1,6 +1,9 @@
 import { useContext, useEffect } from "react";
 
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
+
+import PaymentForm from "../../components/payment-form/payment-form.component";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -45,6 +48,7 @@ const Checkout = () => {
         return <CheckoutItem key={cartItem.id} cartItem={cartItem} />;
       })}
       <span className="total">{`Total: $${totalCost}`}</span>
+      <PaymentForm />
     </div>
   );
 };
