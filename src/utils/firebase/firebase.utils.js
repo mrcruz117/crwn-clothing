@@ -10,6 +10,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 
 // database imports
@@ -114,6 +115,9 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
   const res = await createUserWithEmailAndPassword(auth, email, password);
+  // if (res.user) {
+  //   await updateProfile(res.user, { displayName });
+  // }
   return res;
 };
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {

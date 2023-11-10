@@ -11,7 +11,10 @@ import {
   getCurrentUser,
   onAuthStateChangedListener,
 } from "./utils/firebase/firebase.utils";
-import { setCurrentUser, checkUserSession } from "./store/user/user.action";
+import {
+  // setCurrentUser,
+  checkUserSession,
+} from "./store/user/user.reducer";
 
 const App = () => {
   const dispatch = useDispatch();

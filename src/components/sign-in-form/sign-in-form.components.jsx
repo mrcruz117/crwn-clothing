@@ -5,7 +5,7 @@ import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import {
   googleSignInStart,
   emailSignInStart,
-} from "../../store/user/user.action";
+} from "../../store/user/user.reducer";
 
 import "./sign-in-form.styles.scss";
 
@@ -33,7 +33,7 @@ const SignInForm = () => {
 
     try {
       // sign in function
-      dispatch(emailSignInStart(email, password));
+      dispatch(emailSignInStart({ email, password }));
       // await signInAuthUserWithEmailAndPassword(email, password);
 
       setFormFields(defaultFormFields);
