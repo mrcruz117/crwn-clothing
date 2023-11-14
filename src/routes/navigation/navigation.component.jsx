@@ -8,7 +8,7 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 // import { UserContext } from "../../components/contexts/user.context";
 // import { CartContext } from "../../components/contexts/cart.context";
 
-import { signOutStart } from "../../store/user/user.action";
+import { signOutStart } from "../../store/user/user.reducer";
 
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 

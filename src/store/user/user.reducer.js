@@ -1,4 +1,6 @@
-import { USER_ACTION_TYPES } from "./user.types";
+// import { USER_ACTION_TYPES } from "./user.types";
+
+import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   currentUser: null,
@@ -6,19 +8,51 @@ const INITIAL_STATE = {
   error: null,
 };
 
-export const userReducer = (state = INITIAL_STATE, action) => {
-  const { type, payload } = action;
+const userSlice = createSlice({
+  name: "user",
+  initialState: INITIAL_STATE,
+  reducers: {
+    signInSuccess: (state, action) => {
+      state.currentUser = action.payload;
+    },
+    signOutSuccess: (state) => {
+      state.currentUser = null;
+    },
+    signOutFailed: (state, action) => {
+      state.error = action.payload;
+    },
+    signUpFailed: (state, action) => {
+      state.error = action.payload;
+    },
+    signUpSuccess: (state, action) => {
+      state.currentUser = action.payload;
+    },
+    signInFailed: (state, action) => {
+      state.error = action.payload;
+    },
+    // Action handled by saga
+    // No state modification here as this is handled by a saga
+    checkUserSession: (state) => {},
+    googleSignInStart: (state) => {},
+    emailSignInStart: (state, action) => {},
+    signUpStart: (state, action) => {},
+    signOutStart: (state) => {},
+  },
+});
 
-  switch (type) {
-    case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
-      return { ...state, currentUser: payload };
-    case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
-      return { ...state, currentUser: null };
-    case USER_ACTION_TYPES.SIGN_OUT_FAILED:
-    case USER_ACTION_TYPES.SIGN_UP_FAILED:
-    case USER_ACTION_TYPES.SIGN_IN_FAILED:
-      return { ...state, error: payload };
-    default:
-      return state;
-  }
-};
+export const {
+  signInSuccess,
+  signOutSuccess,
+  signOutFailed,
+  signUpSuccess,
+  signUpFailed,
+  signInFailed,
+  // Action handled by saga
+  checkUserSession,
+  googleSignInStart,
+  emailSignInStart,
+  signUpStart,
+  signOutStart,
+} = userSlice.actions;
+
+export const userReducer = userSlice.reducer;

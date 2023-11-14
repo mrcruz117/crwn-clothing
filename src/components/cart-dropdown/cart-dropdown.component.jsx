@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-// import { setIsCartOpen } from "../../store/cart/cart.action";
+
 
 import {
   selectCartItems,
