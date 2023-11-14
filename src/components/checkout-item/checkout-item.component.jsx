@@ -6,25 +6,25 @@ import {
   removeAllItems,
   addItemToCart,
   removeItemFromCart,
-} from "../../store/cart/cart.action";
+} from "../../store/cart/cart.reducer";
 
 import "./checkout-item.styles.scss";
 
 const CheckoutItem = ({ cartItem }) => {
   const dispatch = useDispatch();
   const { name, price, imageUrl, quantity } = cartItem;
-  const cartItems = useSelector(selectCartItems);
+  // const cartItems = useSelector(selectCartItems);
 
   const clearItemHandler = () => {
-    dispatch(removeAllItems(cartItems, cartItem));
+    dispatch(removeAllItems(cartItem));
   };
 
   const addItemHandler = () => {
-    dispatch(addItemToCart(cartItems, cartItem));
+    dispatch(addItemToCart(cartItem));
   };
 
   const removeItemHandler = () => {
-    dispatch(removeItemFromCart(cartItems, cartItem));
+    dispatch(removeItemFromCart(cartItem));
   };
 
   return (
