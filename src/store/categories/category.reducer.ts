@@ -1,20 +1,30 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define a type for the category item
-type Category = {
+type CategoryItem = {
   id: number;
   name: string;
-  // Add other properties as needed
+  imageUrl: string;
+  price: number;
 };
 
 // Define a type for the state
-type CategoriesState = {
-  categories: Category[];
+type CategoryState = {
+  categories: CategoryItem[];
   isLoading: boolean;
   error: string | null;
 };
 
-export const CATEGORIES_INITIAL_STATE: CategoriesState = {
+// export type ActionWithPayload<T, P> = {
+//   type: T;
+//   payload: P;
+// };
+
+// export type ActionWithoutPayload<T> = {
+//   type: T;
+// };
+
+export const CATEGORIES_INITIAL_STATE: CategoryState = {
   categories: [],
   isLoading: false,
   error: null,
@@ -27,7 +37,7 @@ const categoriesSlice = createSlice({
     fetchCategoriesStart: (state) => {
       state.isLoading = true;
     },
-    fetchCategoriesSuccess: (state, action: PayloadAction<Category[]>) => {
+    fetchCategoriesSuccess: (state, action: PayloadAction<CategoryItem[]>) => {
       state.categories = action.payload;
       state.isLoading = false;
     },
