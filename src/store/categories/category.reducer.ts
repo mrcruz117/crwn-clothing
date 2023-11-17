@@ -10,9 +10,9 @@ type CategoryItem = {
 
 // Define a type for the state
 type CategoryState = {
-  categories: CategoryItem[];
-  isLoading: boolean;
-  error: string | null;
+  readonly categories: CategoryItem[];
+  readonly isLoading: boolean;
+  readonly error: string | null;
 };
 
 // export type ActionWithPayload<T, P> = {
