@@ -1,6 +1,6 @@
 // import { compose, createStore, applyMiddleware } from "redux";
 
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Middleware } from "@reduxjs/toolkit";
 
 // import thunk from "redux-thunk";
 
@@ -15,10 +15,10 @@ import { rootSaga } from "./root-saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middleWares = [
+const middleWares: Middleware[] = [
   process.env.NODE_ENV === "development" && logger,
   sagaMiddleware,
-].filter(Boolean);
+].filter(Boolean) as Middleware[];
 
 // const composeEnhancer =
 //   (process.env.NODE_ENV !== "production" &&
@@ -34,7 +34,7 @@ const persistConfig = {
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-console.log("middleWares: ", middleWares);
+// console.log("middleWares: ", middleWares);
 
 // const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
