@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import {
   BaseButton,
   ButtonSpinner,
@@ -11,6 +12,9 @@ export const BUTTON_TYPE_CLASSES = {
   inverted: "inverted",
 };
 
+type ButtonType =
+  (typeof BUTTON_TYPE_CLASSES)[keyof typeof BUTTON_TYPE_CLASSES];
+
 const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
   ({
     [BUTTON_TYPE_CLASSES.base]: BaseButton,
@@ -18,7 +22,19 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
     [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
   }[buttonType]);
 
-const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
+interface ButtonProps {
+  children: ReactNode;
+  buttonType?: ButtonType;
+  isLoading?: boolean;
+  [x: string]: any; // for otherProps
+}
+
+const Button: React.FC<ButtonProps> = ({
+  children,
+  buttonType,
+  isLoading,
+  ...otherProps
+}) => {
   const CustomButton = getButton(buttonType);
 
   return (
